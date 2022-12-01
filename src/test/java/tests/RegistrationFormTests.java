@@ -2,9 +2,6 @@ package tests;
 
 import org.junit.jupiter.api.Test;
 
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selenide.*;
-
 public class RegistrationFormTests extends TestBase {
     @Test
     void fillFormTest() {
@@ -36,23 +33,19 @@ public class RegistrationFormTests extends TestBase {
                 .setAddress(address)
                 .setState(state)
                 .setCity(city)
-                .clickSubmit();
-
-
-
-
-        $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
-        $(".table-responsive").shouldHave(
-                text("Maria Ivanova"),
-                text("test@gmail.com"),
-                text("Female"),
-                text("7999999999"),
-                text("14 April,1997"),
-                text("Maths"),
-                text("Sports"),
-                text("picture.png"),
-                text("75 Park Place, 15"),
-                text("NCR Delhi")
-        );
+                .clickSubmitButton()
+                .verifyModalResultsAppears()
+                .verifyFormResult("Student Name", firstName + " " + lastName)
+                .verifyFormResult("Student Email", userEmail)
+                .verifyFormResult("Gender", gender)
+                .verifyFormResult("Mobile", userNumber)
+                .verifyFormResult("Mobile", userNumber)
+                .verifyFormResult("Date of Birth", dayOfBirth + " " + monthOfBirth + "," + yearOfBirth)
+                .verifyFormResult("Subjects", subject)
+                .verifyFormResult("Hobbies", hobby)
+                .verifyFormResult("Picture", pictureDirectory.replaceAll("src/test/resources/",""))
+                .verifyFormResult("Address", address)
+                .verifyFormResult("State and City", state + " " + city)
+                .clickCloseButton();
     }
 }

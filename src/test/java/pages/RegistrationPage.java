@@ -2,14 +2,16 @@ package pages;
 
 import com.codeborne.selenide.SelenideElement;
 import pages.components.CalendarComponent;
-import pages.components.PictureUploaderComponent;
+import pages.components.FormResultModalComponent;
+import pages.components.FileUploaderComponent;
 
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
 public class RegistrationPage {
     CalendarComponent calendarComponent = new CalendarComponent();
-    PictureUploaderComponent pictureUploaderComponent = new PictureUploaderComponent();
+    FileUploaderComponent fileUploaderComponent = new FileUploaderComponent();
+    FormResultModalComponent formResultModalComponent = new FormResultModalComponent();
     private SelenideElement
             firstNameInput = $("#firstName"),
             lastNameInput = $("#lastName"),
@@ -23,7 +25,9 @@ public class RegistrationPage {
             addressInput = $("#currentAddress"),
             stateInput = $("#state"),
             cityInput = $("#city"),
-            submitButton = $("#submit");
+            stateCityList = $("#stateCity-wrapper"),
+            submitButton = $("#submit"),
+            closeButton = $("#closeLargeModal");
 
     public RegistrationPage openPage() {
         open("/automation-practice-form");
@@ -74,7 +78,7 @@ public class RegistrationPage {
     }
 
     public RegistrationPage uploadPicture(String value) {
-        pictureUploaderComponent.uploadPicture(uploadPictureButton, value);
+        fileUploaderComponent.uploadFile(uploadPictureButton, value);
         return this;
     }
 
@@ -85,18 +89,33 @@ public class RegistrationPage {
 
     public RegistrationPage setState(String value) {
         stateInput.click();
-        $("#stateCity-wrapper").$(byText(value)).click();
+        stateCityList.$(byText(value)).click();
         return this;
     }
 
     public RegistrationPage setCity(String value) {
         cityInput.click();
-        $("#stateCity-wrapper").$(byText(value)).click();
+        stateCityList.$(byText(value)).click();
         return this;
     }
 
-    public RegistrationPage clickSubmit() {
+    public RegistrationPage clickSubmitButton() {
         submitButton.click();
+        return this;
+    }
+
+    public RegistrationPage verifyModalResultsAppears() {
+        formResultModalComponent.verifyModalAppears();
+        return this;
+    }
+
+    public RegistrationPage verifyFormResult(String key, String value) {
+        formResultModalComponent.verifyResult(key, value);
+        return this;
+    }
+
+    public RegistrationPage clickCloseButton() {
+        closeButton.click();
         return this;
     }
 }
