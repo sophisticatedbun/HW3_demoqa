@@ -9,7 +9,6 @@ public class TestData {
     Faker faker = new Faker();
     static Random random = new Random();
     static String[] genders = {"Male", "Female", "Other"},
-                    months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"},
                     subjects = {"Accounting", "Arts", "Biology", "Chemistry", "English", "History"},
                     hobbies = {"Sports", "Reading", "Music"},
                     citiesNCR = {"Delhi", "Gurgaon", "Noida"};
